@@ -1,0 +1,47 @@
+#include <iostream>
+#include <conio.h>
+
+
+using namespace std;
+void cargar(int v[],int n){
+	int i,x;
+	for(i=0;i<n;i++){
+		cout<<"elemento: ";
+		cin>>x;
+		v[i]=x;
+	}
+}
+void mostrar(int v[],int n){
+	int i;
+	for(i=0;i<n;i++){
+		cout<<v[i];
+	}
+}
+
+
+
+bool capicua(int v[],int n){
+	int i,j;
+	i=0;
+	j=n-1;
+	while(i<j){
+    if(v[i]!=v[j]){
+		return false;
+	}
+	else{
+		i=i+1;
+		j--;}
+	}
+	return true;
+}
+int main(){
+	int n,v[100],r;
+	cout<<"tamaño:";
+	cin>>n;
+	cargar(v,n);
+	mostrar(v,n);
+	cout<<endl;
+	r=capicua(v,n);
+	cout<<r;
+	getch();
+}
