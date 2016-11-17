@@ -1,0 +1,35 @@
+void ordenar(){
+	FILE*ptr;
+	FILE*ptr2;
+	regAmigo reg;
+	regAmigo aux;
+	regAmigo aux2;
+	int v,w,n,edad;
+	n=nroReg();
+	ptr = fopen("amigos.dat","rb");
+	
+	for(v=0;v<n;v++){
+		for(w=v;w<n-1;w++){
+			ptr2 = fopen("amigos.dat","r+b");
+			fseek(ptr,w*sizeof(reg),SEEK_SET);
+			fread(&reg,sizeof(reg),1,ptr);
+			edad=reg.edad;
+			fseek(ptr2,(w+1)*sizeof(reg),SEEK_SET);
+			fread(&reg,sizeof(reg),1,ptr2);
+			if(reg.edad<edad){
+				copiar(aux,reg);
+				fseek(ptr2,w*sizeof(reg),SEEK_SET);
+				copiar(aux2,reg);
+				copiar(reg,aux);
+				fseek(ptr2,w*sizeof(reg),SEEK_SET);
+				fwrite(&reg,sizeof(reg),1,ptr2);
+				fseek(ptr2,(w+1)*sizeof(reg),SEEK_SET);
+				copiar(reg,aux2);
+				fseek(ptr2,(w+1)*sizeof(reg),SEEK_SET);
+				fwrite(&reg,sizeof(reg),1,ptr2);
+			}
+			fclose(ptr2);
+		}
+	}
+	fclose(ptr);
+	
